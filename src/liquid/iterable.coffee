@@ -40,6 +40,7 @@ module.exports = class Iterable
 
 class IterableForArray extends Iterable
   constructor: (@array) ->
+    super()
 
   slice: ->
     Promise.resolve @array.slice arguments...

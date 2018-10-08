@@ -55,24 +55,22 @@ module.exports = class For extends Liquid.Block
 
   constructor: (template, tagName, markup) ->
     match = Syntax.exec(markup)
+    throw new Liquid.SyntaxError(SyntaxHelp) unless match
 
-    if match
-      @variableName = match[1]
-      @collectionName = match[2]
-      @registerName = "#{match[1]}=#{match[2]}"
-      @reversed = match[3]
-      @attributes = {}
+    super template, tagName, markup
+    @variableName = match[1]
+    @collectionName = match[2]
+    @registerName = "#{match[1]}=#{match[2]}"
+    @reversed = match[3]
+    @attributes = {}
 
-      Liquid.Helpers.scan(markup, Liquid.TagAttributes).forEach (attr) =>
-        @attributes[attr[0]] = attr[1]
-    else
-      throw new Liquid.SyntaxError(SyntaxHelp)
+    Liquid.Helpers.scan(markup, Liquid.TagAttributes).forEach (attr) =>
+      @attributes[attr[0]] = attr[1]
 
     @nodelist = @forBlock = []
-    super
 
   unknownTag: (tag, markup) ->
-    return super unless tag == "else"
+    return super tag, markup unless tag == "else"
     @nodelist = @elseBlock = []
 
   render: (context) ->

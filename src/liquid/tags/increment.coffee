@@ -18,8 +18,8 @@ Liquid = require "../../liquid"
 
 module.exports = class Increment extends Liquid.Tag
   constructor: (template, tagName, markup) ->
+    super template, tagName, markup
     @variable = markup.trim()
-    super
 
   render: (context) ->
     value = context.environments[0][@variable] ?= 0

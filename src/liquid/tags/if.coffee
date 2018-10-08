@@ -22,15 +22,15 @@ module.exports = class If extends Liquid.Block
   ///
 
   constructor: (template, tagName, markup) ->
+    super template, tagName, markup
     @blocks = []
     @pushBlock('if', markup)
-    super
 
   unknownTag: (tag, markup) ->
     if tag in ["elsif", "else"]
       @pushBlock(tag, markup)
     else
-      super
+      super tag, markup
 
   render: (context) ->
     context.stack =>

@@ -82,11 +82,11 @@ describe "Context", ->
       @ctx.push b: 1
       @ctx.push c: true
 
-      expect(@ctx.hasKey("a")).to.become.ok
-      expect(@ctx.hasKey("b")).to.become.ok
-      expect(@ctx.hasKey("c")).to.become.ok
+      expect(@ctx.hasKey("a")).to.eventually.be.ok
+      expect(@ctx.hasKey("b")).to.eventually.be.ok
+      expect(@ctx.hasKey("c")).to.eventually.be.ok
 
-      expect(@ctx.hasKey("z")).not.to.become.ok
+      expect(@ctx.hasKey("z")).not.to.eventually.be.ok
 
   context ".variable", ->
     it "supports special access", ->

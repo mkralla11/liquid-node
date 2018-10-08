@@ -15,19 +15,19 @@ module.exports = class Case extends Liquid.Block
     ///
 
   constructor: (template, tagName, markup) ->
-    @blocks = []
-
     match = Syntax.exec markup
     throw new Liquid.SyntaxError(SyntaxHelp) unless match
 
+    super template, tagName, markup
+
+    @blocks = []
     @markup = markup
-    super
 
   unknownTag: (tag, markup) ->
     if tag in ["when", "else"]
       @pushBlock(tag, markup)
     else
-      super
+      super tag, markup
 
   render: (context) ->
     context.stack =>

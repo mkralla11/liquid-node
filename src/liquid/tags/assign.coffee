@@ -8,14 +8,13 @@ module.exports = class Assign extends Liquid.Tag
       (.*)\s*
     ///
 
-  constructor: (template, tagName, markup) ->
+  constructor: (template, tagName, markup, tokens) ->
     if match = Syntax.exec(markup)
+      super template, tagName, markup, tokens
       @to = match[1]
       @from = new Liquid.Variable match[2]
     else
       throw new Liquid.SyntaxError(SyntaxHelp)
-
-    super
 
   render: (context) ->
     context.lastScope()[@to] = @from.render(context)

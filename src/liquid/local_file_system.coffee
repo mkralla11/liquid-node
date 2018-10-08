@@ -16,6 +16,7 @@ module.exports = class Liquid.LocalFileSystem extends Liquid.BlankFileSystem
   PathPattern = ///^[^.\/][a-zA-Z0-9-_\/]+$///
 
   constructor: (root, extension = "html") ->
+    super root, extension
     @root = root
     @fileExtension = extension
 

@@ -56,7 +56,8 @@ has = (input, key) ->
 isEmpty = (input) ->
   return true unless input?
   return input.length is 0 if isArray(input) or isString(input) or isArguments(input)
-  (return false if has key, input) for key of input
+  for key of input
+    return false if has key, input
   true
 
 isBlank = (input) ->

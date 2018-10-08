@@ -19,14 +19,13 @@ module.exports = class Capture extends Liquid.Block
     match = Syntax.exec(markup)
 
     if match
+      super template, tagName, markup
       @to = match[1]
     else
       throw new Liquid.SyntaxError(SyntaxHelp)
 
-    super
-
   render: (context) ->
-    super.then (chunks) =>
+    super(context).then (chunks) =>
       output = Liquid.Helpers.toFlatString chunks
       context.lastScope()[@to] = output
       ""

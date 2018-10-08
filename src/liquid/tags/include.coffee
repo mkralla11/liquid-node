@@ -10,13 +10,12 @@ module.exports = class Include extends Liquid.Tag
     match = Syntax.exec(markup)
     throw new Liquid.SyntaxError(SyntaxHelp) unless match
 
+    super template, tagName, markup, tokens
+
     @filepath = match[1]
     @subTemplate = template.engine.fileSystem.readTemplateFile(@filepath)
       .then (src) ->
         template.engine.parse(src)
-
-
-    super
 
   render: (context) ->
     @subTemplate.then (i) -> i.render context
