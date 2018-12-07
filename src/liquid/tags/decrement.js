@@ -27,15 +27,9 @@ const Liquid = require("../../liquid");
 //
 module.exports = (Decrement = class Decrement extends Liquid.Tag {
   constructor(template, tagName, markup) {
-    {
-      // Hack: trick Babel/TypeScript into allowing this before super.
-      if (false) { super(); }
-      let thisFn = (() => { return this; }).toString();
-      let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-      eval(`${thisName} = this;`);
-    }
-    this.variable = markup.trim();
     super(...arguments);
+    this.variable = markup.trim();
+    
   }
 
   render(context) {

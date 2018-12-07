@@ -15,7 +15,8 @@ describe("StandardFilters", function() {
   describe("taking string inputs", () =>
     it("handles odd objects", function() {
       const noop = function() {};
-      expect(this.filters.upcase({toString() { return noop; }})).to.equal("FUNCTION () {}");
+      const res = this.filters.upcase({toString() { return noop; }})
+      expect(res).to.match(/FUNCTION(\s*)?\(\)(\s*)?{}/);
       return expect(this.filters.upcase({toString: null})).to.equal("[OBJECT OBJECT]");
     })
   );

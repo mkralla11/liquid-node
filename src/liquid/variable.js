@@ -71,14 +71,14 @@ module.exports = (Variable = (function() {
             if (!(e instanceof Liquid.FilterNotFound)) { throw e; }
             throw new Liquid.FilterNotFound(`Error - filter '${filter[0]}' in '${this.markup}' could not be found.`);
           }
-        });
+        })
       };
 
       const value = Promise.resolve(context.get(this.name));
-
+      // debugger
       switch (this.filters.length) {
         case 0:
-          filtered = value;
+          filtered = Promise.resolve(value);
           break;
         case 1:
           // Special case since Array#reduce doesn't call

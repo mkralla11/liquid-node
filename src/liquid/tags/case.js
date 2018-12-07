@@ -32,20 +32,14 @@ module.exports = (Case = (function() {
     }
 
     constructor(template, tagName, markup) {
-      {
-        // Hack: trick Babel/TypeScript into allowing this before super.
-        if (false) { super(); }
-        let thisFn = (() => { return this; }).toString();
-        let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-        eval(`${thisName} = this;`);
-      }
+      super(...arguments);
       this.blocks = [];
 
       const match = Syntax.exec(markup);
       if (!match) { throw new Liquid.SyntaxError(SyntaxHelp); }
 
       this.markup = markup;
-      super(...arguments);
+      
     }
 
     unknownTag(tag, markup) {

@@ -29,13 +29,8 @@ module.exports = (Capture = (function() {
     }
 
     constructor(template, tagName, markup) {
-      {
-        // Hack: trick Babel/TypeScript into allowing this before super.
-        if (false) { super(); }
-        let thisFn = (() => { return this; }).toString();
-        let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-        eval(`${thisName} = this;`);
-      }
+      super(...arguments);
+
       const match = Syntax.exec(markup);
 
       if (match) {
@@ -44,7 +39,6 @@ module.exports = (Capture = (function() {
         throw new Liquid.SyntaxError(SyntaxHelp);
       }
 
-      super(...arguments);
     }
 
     render(context) {

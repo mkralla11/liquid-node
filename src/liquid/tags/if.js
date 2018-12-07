@@ -39,16 +39,10 @@ module.exports = (If = (function() {
     }
 
     constructor(template, tagName, markup) {
-      {
-        // Hack: trick Babel/TypeScript into allowing this before super.
-        if (false) { super(); }
-        let thisFn = (() => { return this; }).toString();
-        let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-        eval(`${thisName} = this;`);
-      }
+      super(...arguments);
       this.blocks = [];
       this.pushBlock('if', markup);
-      super(...arguments);
+      
     }
 
     unknownTag(tag, markup) {

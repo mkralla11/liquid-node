@@ -20,13 +20,7 @@ Valid syntax: include [templateName]`;
     }
 
     constructor(template, tagName, markup, tokens) {
-      {
-        // Hack: trick Babel/TypeScript into allowing this before super.
-        if (false) { super(); }
-        let thisFn = (() => { return this; }).toString();
-        let thisName = thisFn.match(/return (?:_assertThisInitialized\()*(\w+)\)*;/)[1];
-        eval(`${thisName} = this;`);
-      }
+      super(...arguments);
       const match = Syntax.exec(markup);
       if (!match) { throw new Liquid.SyntaxError(SyntaxHelp); }
 
@@ -34,8 +28,6 @@ Valid syntax: include [templateName]`;
       this.subTemplate = template.engine.fileSystem.readTemplateFile(this.filepath)
         .then(src => template.engine.parse(src));
 
-
-      super(...arguments);
     }
 
     render(context) {

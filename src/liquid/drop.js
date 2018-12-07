@@ -59,16 +59,18 @@ module.exports = (Drop = (function() {
     beforeMethod(method) {}
 
     static isInvokable(method) {
-      if (this.invokableMethods == null) { this.invokableMethods = (() => {
-        const blacklist = Object.keys(Drop.prototype);
-        const whitelist = ["toLiquid"];
-
-        Object.keys(this.prototype).forEach(function(k) {
-          if (!(blacklist.indexOf(k) >= 0)) { return whitelist.push(k); }
-        });
-
-        return whitelist;
-      })(); }
+      if (this.invokableMethods == null) { 
+        this.invokableMethods = (() => {
+          const blacklist = Object.getOwnPropertyNames(Drop.prototype)
+          const whitelist = ["toLiquid"];
+          for(const prop of Object.getOwnPropertyNames(this.prototype)){
+            if(!(blacklist.indexOf(prop) >= 0)){
+              whitelist.push(prop);
+            }
+          }
+          return whitelist;
+        })(); 
+      }
 
       return this.invokableMethods.indexOf(method) >= 0;
     }
